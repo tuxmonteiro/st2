@@ -1,0 +1,22 @@
+version: 1.0
+
+description: A sample workflow used to test the rerun feature.
+
+input:
+  - tempfile
+  
+tasks:
+  start:
+    action: core.echo message="Started"
+    next:
+      - when: <% succeeded() %>
+        do: subworkflow
+  subworkflow:
+    action: examples.orquesta-test-rerun
+    input: 
+      tempfile: <% ctx().tempfile %>
+    next:
+      - when: <% succeeded() %>
+        do: finish
+  finish:
+    action: core.echo message="Completed"
