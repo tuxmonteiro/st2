@@ -319,5 +319,9 @@ def get_env_for_subprocess_command():
 
     if 'PYTHONPATH' in env:
         del env['PYTHONPATH']
+    if 'HTTP_PROXY' in env:
+        del env['HTTP_PROXY']
+    if 'HTTPS_PROXY' in env:
+        del env['HTTPS_PROXY']
 
     return env
